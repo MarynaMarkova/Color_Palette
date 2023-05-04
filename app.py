@@ -1,3 +1,32 @@
-import sys
+import openai
+from flask import Flask, render_template, request
+from dotenv import dotenv_values
 
-print(sys.path)
+config = dotenv_values(".env")
+openai.api_key = config["OPENAI_API_KEY"]
+
+app = Flask(__name__, template_folder="templates")
+
+
+# @app.route("/palette", methods=["POST"])
+# def prompt_to_palette():
+#    # OPEN AI COMPLETEION CALL
+
+#    # RETURN LIST OF COLORS
+
+
+@app.route("/")
+def index():
+    response = openai.Completion.create(
+        model="text-davinci-003", prompt="How to translate Snorfle in ukrainian: "
+    )
+    return response["choices"][0]["text"]
+    # return render_template("index.html")
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+# flask run in terminal
+# flask run --debug // automatically updates the server
