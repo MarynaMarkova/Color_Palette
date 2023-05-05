@@ -6,7 +6,9 @@ import json
 config = dotenv_values(".env")
 openai.api_key = config["OPENAI_API_KEY"]
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(
+    __name__, template_folder="templates", static_url_path="", static_folder="static"
+)
 
 
 def get_colors(msg):
@@ -15,7 +17,7 @@ def get_colors(msg):
 
     You should generate color palettes that fit the theme, mood or instructions in the prompt.
     
-    The palette should be between 2 and 8 colors.
+    The palettes should be between 2 and 8 colors.
 
     Q: Convert the following verbal description of a color palette into a list of colors: The Mediterreanean Sea
     A: ["#006699", "#66CCCC", "#F0E68C", "#008000", "#F08080"]
